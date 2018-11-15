@@ -1,0 +1,89 @@
+$card-bg: grey;
+$font-size: 10.4rem;
+$font-weight: 700;
+$effect: 145px;
+$color: #fff;
+
+
+
+.flip-item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: $effect;
+
+  &--top,
+  &--bottom,
+  &--under,
+  &--under-bottom {
+    color: $color;
+    text-align: center;
+    font-size: $font-size;
+    font-weight: $font-weight;
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    background-color: $card-bg;
+    transition: all 0.5s linear;
+    overflow: hidden;
+  }
+
+
+  &--bottom {
+    top: 0;
+    height: 100%;
+  }
+
+  &--top {
+    transform-origin: 50% 100%;
+
+    &.flip-down {
+      animation-name: flip-down;
+      animation-duration: 0.4s;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+    }
+  }
+
+  &--under {
+    line-height: 1.03;
+  }
+
+  &--under-bottom {
+    top: 50%;
+    line-height: 0;
+    transform: rotateX(-88deg);
+    transform-origin: 0 0%;
+    visibility: hidden;
+
+    &.flip-down-middle {
+      animation-name: flip-down-middle;
+      animation-duration: 0.4s;
+      animation-delay: 0.4s;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+    }
+  }
+}
+
+@keyframes flip-down {
+  0% {
+    transform: rotateX(0);
+    display: block;
+  }
+  100% {
+    transform: rotateX(-88deg);
+    visibility: hidden;
+  }
+}
+
+@keyframes flip-down-middle {
+  0% {
+    transform: rotateX(88deg);
+    visibility: hidden;
+  }
+  100% {
+    transform: rotateX(0deg);
+    visibility: visible;
+  }
+}

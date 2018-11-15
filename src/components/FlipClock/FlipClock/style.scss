@@ -1,0 +1,10 @@
+.flip-clock {
+  display: flex;
+  justify-content: center;
+
+  &__item {
+    width: 120px;
+    height: 120px;
+    border: 1px solid black;
+  }
+}

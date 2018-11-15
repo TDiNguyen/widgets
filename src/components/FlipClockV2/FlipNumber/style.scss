@@ -1,0 +1,113 @@
+.flip-number {
+  border: 1px solid green;
+  display: inline-block;
+  padding: 20px 8px;
+  background: #000;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 3px;
+
+  &__section {
+    position: relative;
+    height: 120px;
+    width: 120px;
+    perspective: 250px;
+  }
+
+  &__item-wrap {
+    position: absolute;
+    z-index: 1;
+  }
+
+  &__item-wrap.active {
+    z-index: 2;
+
+    & .flip-number {
+      &__item-top {
+        animation: flipdown 0.4s ease forwards;
+      }
+
+      &__item-bottom-next {
+        animation: flipdownNext 0.4s ease 0.2s forwards;
+      }
+    }
+  }
+
+  &__item-top-next,
+  &__item-top {
+    position: absolute;
+    top: 0;
+    transform-origin: 50% 100%;
+    height: 50%;
+    overflow: hidden;
+  }
+
+  &__item-bottom-next,
+  &__item-bottom {
+    position: absolute;
+    overflow: hidden;
+    transform-origin: 50% 0%;
+    height: 50%;
+    top: 50%;
+    line-height: 0;
+    border-top: 1px solid #ccc;
+  }
+
+  &__item-bottom-next {
+    z-index: 2;
+    transform: rotateX(90deg);
+  }
+
+  &__item-top,
+  &__item-bottom,
+  &__item-bottom-next,
+  &__item-top-next {
+    background: #494949;
+  }
+
+  &__item-top,
+  &__item-bottom {
+    z-index: 2;
+  }
+
+  &__item {
+    width: 16px;
+    height: 35px;
+    position: relative;
+    border: 1px solid #494949;
+    color: #fff;
+    background: #494949;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .flip-number {
+    &__section {
+      margin: 0 10px;
+    }
+
+    &__item {
+      font-size: 28px;
+    }
+  }
+}
+
+@keyframes flipdown {
+  from {
+    transform: rotateX(0);
+  }
+
+  to {
+    transform: rotateX(90deg);
+  }
+}
+
+@keyframes flipdownNext {
+  from {
+    transform: rotateX(90deg);
+  }
+
+  to {
+    transform: rotateX(0);
+  }
+}

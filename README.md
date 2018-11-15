@@ -1,2 +1,1 @@
-# widgets
-List of Widget created with ReactJs
+#List of Widgets create with ReactJs
