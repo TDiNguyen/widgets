@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FlipNumber from '../FlipNumber';
+import FlipNumber from './FlipNumber';
 
 class Clock extends Component {
 	constructor(props) {

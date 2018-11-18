@@ -1,0 +1,158 @@
+$font-size: 12.3rem;
+$card-bg: #f1f1f1;
+$deep-effect: 550px;
+$animation-time: 0.4s;
+$border: 1px solid #ccc;
+$border-radius: 15px;
+$animation-behavior: linear;
+
+@mixin full-space {
+    width: 100%;
+    height: 100%;
+}
+
+@mixin half-height {
+    width: 100%;
+    height: 50%;
+}
+
+@mixin absolute($top, $left) {
+    position: absolute;
+    top: $top;
+    left: $left;
+}
+
+.flip-numbers {
+    @include full-space;
+    &__list {
+        @include full-space;
+        position: relative;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        perspective: $deep-effect;
+    }
+
+    & .top,
+    & .bottom {
+        @include half-height;
+        background: $card-bg;
+        border: $border
+    }
+
+    & .top {
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+    }
+
+    & .bottom {
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+    }
+
+    &__item {
+        display: none;
+
+        &--current,
+        &--next,
+        &--current .top,
+        &--next .bottom {
+            @include absolute(0, 0);
+        }
+
+        &--current,
+        &--next {
+            @include full-space;
+            display: block;
+            font-size: $font-size;
+            text-align: center;
+            transition: all $animation-time $animation-behavior;
+        }
+
+        &--current {
+            & .top {
+                line-height: 1;
+                overflow: hidden;
+                animation-name: flip-down;
+                animation-duration: $animation-time;
+                animation-fill-mode: forwards;
+                animation-timing-function: $animation-behavior;
+                transform-origin: 50% 100%;
+                z-index: 1;
+            }
+
+            & .bottom {
+                line-height: 0;
+                overflow: hidden;
+                @include absolute(50%, 0);
+                z-index: 1;
+
+
+            }
+
+        }
+
+        &--next {
+            & .top,
+            & .bottom {
+                line-height: 1;
+                overflow: hidden;
+            }
+
+            & .bottom {
+                line-height: 0;
+                top: 50%;
+                z-index: 1;
+            }
+
+            & .bottom {
+                z-index: 2;
+                transform-origin: 50% 0%;
+                transform: rotateX(90deg);
+                transition: all $animation-time $animation-behavior;
+                animation-name: flip-down-from-middle;
+                animation-duration: $animation-time;
+                animation-delay: $animation-time;
+                animation-timing-function: $animation-behavior;
+                animation-fill-mode: forwards;
+            }
+        }
+    }
+}
+
+@keyframes flip-down {
+    0% {
+        transform: rotateX(0);
+    }
+    99% {
+        transform:  rotateX(-90deg);
+        visibility: visible;
+    }
+    100% {
+        visibility: hidden;
+    }
+}
+
+@keyframes flip-down-from-middle {
+    from {
+        transform: rotateX(-90);
+    }
+    to {
+        transform:  rotateX(0);
+    }
+}
+
+@keyframes shadow-fall {
+    1% {
+        visibility: visible;
+    }
+    2% {
+        height: 0;
+    }
+    99% {
+        height: 50%;
+    }
+    100% {
+        visibility: hidden;
+    }
+}
